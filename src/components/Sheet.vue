@@ -31,21 +31,14 @@ const contentHeight = useHeight(contentEl);
 
       <div ref="contentEl" class="size-full p-4">
         <ScrollArea :style="{ height: toPixel(contentHeight - 80) }">
-          <div class="flex flex-col items-start gap-2 pr-4 pb-4 pl-2">
+          <div class="flex flex-col items-start gap-3 pr-4 pb-4 pl-2">
             <InputNumber v-model="config.maxLevel" label="Level" :min="1" :max="30" :step="1" />
             <InputNumber v-model="config.wood" label="Wood" :min="0" :max="1" :step="0.05" />
             <InputNumber v-model="config.stone" label="Stone" :min="0" :max="1" :step="0.05" />
             <InputNumber v-model="config.iron" label="Iron" :min="0" :max="1" :step="0.05" />
             <InputNumber
-              v-model="config.maintenance"
-              label="Maintenance"
-              :min="0"
-              :max="1"
-              :step="0.001"
-            />
-            <InputNumber
               v-model="config.cost"
-              label="Total Cost"
+              label="Cost"
               :min="0"
               :max="1_000_000_000"
               :step="1000"
@@ -56,6 +49,13 @@ const contentHeight = useHeight(contentEl);
               :min="0"
               :max="1"
               :step="0.05"
+            />
+            <InputNumber
+              v-model="config.maintenance"
+              label="Maintenance"
+              :min="0"
+              :max="1"
+              :step="0.001"
             />
             <InputNumber
               v-model="config.workforce"
