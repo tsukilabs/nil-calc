@@ -76,11 +76,11 @@ function clamp(value: number, min: number, max: number) {
     <header class="flex h-[48px] items-center justify-end px-4">
       <Sheet v-model="config" />
     </header>
-    <main ref="mainEl" class="h-[calc(100vh-48px)] w-full overflow-x-auto">
+    <main ref="mainEl" class="h-[calc(100vh-48px)] w-full">
       <Table
-        :height="mainHeight - 20"
+        :height="mainHeight - 30"
         width="100vw"
-        container-class="px-4"
+        container-class="px-4 pb-4"
         header-class="sticky top-0 z-50"
       >
         <template #header>
