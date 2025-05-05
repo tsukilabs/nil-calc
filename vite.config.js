@@ -5,7 +5,7 @@ import { URL, fileURLToPath } from 'node:url';
 
 export default defineConfig({
   plugins: [vue(), tailwind()],
-  clearScreen: false,
+  base: '/nil-calc/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('src', import.meta.url)),
