@@ -98,7 +98,7 @@ function clamp(value: number, min: number, max: number) {
               <span>Iron</span>
             </TableHead>
             <TableHead v-if="config.cost && config.costGrowth">
-              <span>Total Cost</span>
+              <span>Cost</span>
             </TableHead>
             <TableHead v-if="config.cost && config.maintenance">
               <span>Maintenance</span>
