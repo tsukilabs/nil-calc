@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue';
+import { toPixel } from '@tb-dev/utils';
 import {
   Button,
   InputNumber,
@@ -10,8 +12,6 @@ import {
   SheetTrigger,
   useHeight,
 } from '@tb-dev/vue';
-import { useTemplateRef } from 'vue';
-import { toPixel } from '@tb-dev/utils';
 
 const config = defineModel<Config>({ required: true });
 
@@ -41,7 +41,7 @@ const contentHeight = useHeight(contentEl);
               label="Cost"
               :min="0"
               :max="1_000_000_000"
-              :step="1000"
+              :step="1_000"
             />
             <InputNumber
               v-model="config.costGrowth"
@@ -90,7 +90,7 @@ const contentHeight = useHeight(contentEl);
               label="Capacity"
               :min="0"
               :max="100_000_000"
-              :step="10000"
+              :step="10_000"
             />
             <InputNumber
               v-model="config.capacityGrowth"

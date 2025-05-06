@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useColorMode } from '@vueuse/core';
 import Sheet from '@/components/Sheet.vue';
-import { Table, TableCell, TableHead, TableRow, localRef, useHeight } from '@tb-dev/vue';
+import { useColorMode } from '@vueuse/core';
 import { computed, useTemplateRef } from 'vue';
+import { localRef, Table, TableCell, TableHead, TableRow, useHeight } from '@tb-dev/vue';
 
 const mainEl = useTemplateRef('mainEl');
 const mainHeight = useHeight(mainEl);
@@ -13,11 +13,11 @@ const config = localRef<Config>('nil:config', {
   stone: 0.4,
   iron: 0.3,
   maintenance: 0.005,
-  cost: 100000,
+  cost: 100_000,
   costGrowth: 0.2,
   workforce: 150,
   workforceGrowth: 0.2,
-  production: 3600,
+  production: 3_600,
   productionGrowth: 0.2,
   capacity: 400_000,
   capacityGrowth: 0.2,
@@ -73,7 +73,8 @@ function clamp(value: number, min: number, max: number) {
 
 <template>
   <div class="fixed inset-0 overflow-hidden select-none">
-    <header class="flex h-[48px] items-center justify-end px-4">
+    <header class="flex h-[48px] items-center justify-between px-4">
+      <div class="text-lg font-semibold">Calculator</div>
       <Sheet v-model="config" />
     </header>
     <main ref="mainEl" class="h-[calc(100vh-48px)] w-full">

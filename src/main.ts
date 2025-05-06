@@ -7,4 +7,4 @@ import { setCurrentApp } from '@tb-dev/vue';
 const app = createApp(App);
 setCurrentApp(app);
 
-app.mount('#app')
+app.mount('#app');

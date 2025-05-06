@@ -1,29 +1,29 @@
 type Option<T> = T | null | undefined;
 
 interface Config {
-  maxLevel: number;
-  wood: number;
-  stone: number;
-  iron: number;
-  maintenance: number;
-  cost: number;
-  costGrowth: number;
-  workforce: number;
-  workforceGrowth: number;
-  production: number;
-  productionGrowth: number;
   capacity: number;
   capacityGrowth: number;
+  cost: number;
+  costGrowth: number;
+  iron: number;
+  maintenance: number;
+  maxLevel: number;
+  production: number;
+  productionGrowth: number;
+  stone: number;
+  wood: number;
+  workforce: number;
+  workforceGrowth: number;
 }
 
 interface Result {
-  level: number;
-  wood: number;
-  stone: number;
-  iron: number;
-  maintenance: number;
-  totalCost: number;
-  workforce: number;
-  production: number;
   capacity: number;
+  iron: number;
+  level: number;
+  maintenance: number;
+  production: number;
+  stone: number;
+  totalCost: number;
+  wood: number;
+  workforce: number;
 }
