@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import Sheet from '@/components/Sheet.vue';
 import { useColorMode } from '@vueuse/core';
-import { computed, useTemplateRef } from 'vue';
-import { localRef, Table, TableCell, TableHead, TableRow, useHeight } from '@tb-dev/vue';
+import { localRef, useHeight } from '@tb-dev/vue';
+import { calc, Stats, Config as WasmConfig } from 'core';
+import { shallowRef, useTemplateRef, watchEffect } from 'vue';
+import { Table, TableCell, TableHead, TableRow } from '@tb-dev/vue-components';
 
 const mainEl = useTemplateRef('mainEl');
 const mainHeight = useHeight(mainEl);
+
+const wasmConfig = new WasmConfig();
+const stats = shallowRef<Stats[]>([]);
 
 const config = localRef<Config>('nil:config', {
   maxLevel: 30,
@@ -23,52 +28,28 @@ const config = localRef<Config>('nil:config', {
   capacityGrowth: 0.2,
 });
 
-const results = computed(() => {
-  const _results: Result[] = [];
-  const maxLevel = config.value.maxLevel;
-  if (!Number.isInteger(maxLevel) || maxLevel < 1) {
-    return _results;
-  }
+watchEffect(() => {
+  wasmConfig.max_level = config.value.maxLevel;
+  wasmConfig.wood = config.value.wood;
+  wasmConfig.stone = config.value.stone;
+  wasmConfig.iron = config.value.iron;
+  wasmConfig.maintenance = config.value.maintenance;
+  wasmConfig.cost = config.value.cost;
+  wasmConfig.cost_growth = config.value.costGrowth;
+  wasmConfig.workforce = config.value.workforce;
+  wasmConfig.workforce_growth = config.value.workforceGrowth;
+  wasmConfig.production = config.value.production;
+  wasmConfig.production_growth = config.value.productionGrowth;
+  wasmConfig.capacity = config.value.capacity;
+  wasmConfig.capacity_growth = config.value.capacityGrowth;
 
-  let cost = config.value.cost;
-  let maintenance = cost * clamp(config.value.maintenance, 0, 1);
-  let workforce = config.value.workforce;
-  let production = config.value.production;
-  let capacity = config.value.capacity;
-
-  for (let level = maxLevel; level > 0; level--) {
-    _results.push({
-      level,
-      wood: Math.ceil(cost * clamp(config.value.wood, 0, 1)),
-      stone: Math.ceil(cost * clamp(config.value.stone, 0, 1)),
-      iron: Math.ceil(cost * clamp(config.value.iron, 0, 1)),
-      maintenance: Math.ceil(maintenance),
-      totalCost: Math.ceil(cost),
-      workforce: Math.ceil(workforce),
-      production: Math.ceil(production),
-      capacity: Math.ceil(capacity),
-    });
-
-    cost -= cost * clamp(config.value.costGrowth, 0, 1);
-    maintenance = cost * clamp(config.value.maintenance, 0, 1);
-    workforce -= workforce * clamp(config.value.workforceGrowth, 0, 1);
-    production -= production * clamp(config.value.productionGrowth, 0, 1);
-    capacity -= capacity * clamp(config.value.capacityGrowth, 0, 1);
-  }
-
-  _results.sort(({ level: a }, { level: b }) => a - b);
-
-  return _results;
+  stats.value = calc(wasmConfig);
 });
 
 useColorMode({
   initialValue: 'dark',
   writeDefaults: true,
 });
-
-function clamp(value: number, min: number, max: number) {
-  return Math.max(Math.min(value, max), min);
-}
 </script>
 
 <template>
@@ -81,7 +62,7 @@ function clamp(value: number, min: number, max: number) {
       <Table
         :height="mainHeight - 30"
         width="100vw"
-        container-class="px-4 pb-4"
+        class="px-4 pb-4"
         header-class="sticky top-0 z-50"
       >
         <template #header>
@@ -116,7 +97,7 @@ function clamp(value: number, min: number, max: number) {
           </TableRow>
         </template>
 
-        <TableRow v-for="result of results" :key="result.level">
+        <TableRow v-for="result of stats" :key="result.level">
           <TableCell v-if="config.maxLevel > 1">
             {{ result.level }}
           </TableCell>
@@ -130,7 +111,7 @@ function clamp(value: number, min: number, max: number) {
             {{ result.iron }}
           </TableCell>
           <TableCell v-if="config.cost && config.costGrowth">
-            {{ result.totalCost }}
+            {{ result.total_cost }}
           </TableCell>
           <TableCell v-if="config.cost && config.maintenance">
             {{ result.maintenance }}

@@ -1,5 +1,3 @@
-type Option<T> = T | null | undefined;
-
 interface Config {
   capacity: number;
   capacityGrowth: number;
@@ -14,16 +12,4 @@ interface Config {
   wood: number;
   workforce: number;
   workforceGrowth: number;
-}
-
-interface Result {
-  capacity: number;
-  iron: number;
-  level: number;
-  maintenance: number;
-  production: number;
-  stone: number;
-  totalCost: number;
-  wood: number;
-  workforce: number;
 }

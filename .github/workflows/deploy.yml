@@ -19,24 +19,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: 22
           cache: pnpm
 
-      - name: Setup Pages
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - run: |
+      - name: Build
+        shell: pwsh
+        run: |
+          rustup target add wasm32-unknown-unknown
+          cargo install wasm-pack
           pnpm install
           pnpm run build
-          touch dist/.nojekyll
+          touch web/dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: web/dist
 
   deploy:
     environment:

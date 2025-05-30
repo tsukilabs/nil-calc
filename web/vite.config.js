@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
+import wasm from 'vite-plugin-wasm';
 import vue from '@vitejs/plugin-vue';
 import tailwind from '@tailwindcss/vite';
-import { URL, fileURLToPath } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
-  plugins: [vue(), tailwind()],
-  base: '/nil-calc/',
+  plugins: [wasm(), vue(), tailwind()],
+  base: '/nil-stats/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('src', import.meta.url)),
