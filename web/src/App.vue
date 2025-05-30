@@ -55,7 +55,7 @@ useColorMode({
 <template>
   <div class="fixed inset-0 overflow-hidden select-none">
     <header class="flex h-[48px] items-center justify-between px-4">
-      <div class="text-lg font-semibold">Calculator</div>
+      <div class="text-lg font-semibold">Stats Calculator</div>
       <Sheet v-model="config" />
     </header>
     <main ref="mainEl" class="h-[calc(100vh-48px)] w-full">
