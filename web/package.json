@@ -1,0 +1,20 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.11.1",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite dev"
+  },
+  "dependencies": {
+    "@tb-dev/utils": "^7.0.2",
+    "@tb-dev/vue": "^2.0.6",
+    "@tb-dev/vue-components": "^2.0.0",
+    "@vueuse/core": "^13.3.0",
+    "core": "workspace:*",
+    "lucide-vue-next": "^0.513.0",
+    "vue": "^3.5.16"
+  }
+}
